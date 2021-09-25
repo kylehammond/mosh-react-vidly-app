@@ -39,7 +39,7 @@ class Movies extends Component {
 											deleteMovie(movie._id);
 											console.log(`Delete pressed for id: ${movie.title}`);
 										}}
-										className="btn btn-danger">
+										className="btn btn-danger btn-sm">
 										Delete
 									</button>
 								</td>
