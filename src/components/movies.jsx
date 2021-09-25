@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getMovies } from "../services/fakeMovieService";
+import { getMovies, deleteMovie } from "../services/fakeMovieService";
 
 class Movies extends Component {
 	state = {
@@ -7,11 +7,14 @@ class Movies extends Component {
 	};
 
 	render() {
-		const count = this.state.movies;
+		const count = this.state.movies.length;
+
 		return (
 			<main className="container">
 				<div className="m-2">
-					{this.state.movies.count === 0 ? { count } : "There are no movies."}
+					{count > 0
+						? "Showing " + count + " movies in the database."
+						: "There are no movies."}
 				</div>
 
 				<table className="table">
