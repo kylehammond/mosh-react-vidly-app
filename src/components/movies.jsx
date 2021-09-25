@@ -16,15 +16,14 @@ class Movies extends Component {
 						? "Showing " + count + " movies in the database."
 						: "There are no movies."}
 				</div>
-
 				<table className="table">
 					<thead>
-						<tr className="h4">
-							<td>Title</td>
-							<td>Genre</td>
-							<td>Stock</td>
-							<td>Rate</td>
-							<td></td>
+						<tr>
+							<th>Title</th>
+							<th>Genre</th>
+							<th>Stock</th>
+							<th>Rate</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
