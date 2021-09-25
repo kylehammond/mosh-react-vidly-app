@@ -29,16 +29,13 @@ class Movies extends Component {
 					<tbody>
 						{this.state.movies.map((movie) => (
 							<tr key={movie._id}>
-								<td key="{movie._id}_title">{movie.title}</td>
-								<td key="{movie._id}_genre">{movie.genre.name}</td>
-								<td key="{movie._id}_stock">{movie.numberInStock}</td>
-								<td key="{movie._id}_rate">{movie.dailyRentalRate}</td>
+								<td>{movie.title}</td>
+								<td>{movie.genre.name}</td>
+								<td>{movie.numberInStock}</td>
+								<td>{movie.dailyRentalRate}</td>
 								<td>
 									<button
-										onClick={() => {
-											deleteMovie(movie._id);
-											console.log(`Delete pressed for id: ${movie.title}`);
-										}}
+										onClick={() => this.handleDelete(movie)}
 										className="btn btn-danger btn-sm">
 										Delete
 									</button>
@@ -50,6 +47,12 @@ class Movies extends Component {
 			</main>
 		);
 	}
+
+	handleDelete = (movie) => {
+		const movies = this.state.movies.filter((m) => m._id !== movie._id);
+		this.setState({ movies });
+		console.log(`Delete pressed for id: ${movie.title}`);
+	};
 }
 
 export default Movies;
