@@ -35,7 +35,14 @@ class Movies extends Component {
 								<td key="{movie._id}_stock">{movie.numberInStock}</td>
 								<td key="{movie._id}_rate">{movie.dailyRentalRate}</td>
 								<td>
-									<button className="btn btn-danger">Delete</button>
+									<button
+										onClick={() => {
+											deleteMovie(movie._id);
+											console.log(`Delete pressed for id: ${movie.title}`);
+										}}
+										className="btn btn-danger">
+										Delete
+									</button>
 								</td>
 							</tr>
 						))}
