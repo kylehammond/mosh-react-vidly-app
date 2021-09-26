@@ -13,12 +13,12 @@ class TableHeader extends React.Component {
 	};
 
 	render() {
-		const { columns } = this.props;
+		const { columns, sortColumn, onSort } = this.props;
 
 		return (
 			<thead>
 				<tr>
-					{columns.map((column) => (
+					{this.props.columns.map((column) => (
 						<th
 							key={column.path || column.key}
 							onClick={() => this.raiseSort(column.path)}>
