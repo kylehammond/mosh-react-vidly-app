@@ -14,6 +14,7 @@ class Movies extends Component {
 		pageSize: 4,
 		currentPage: 1,
 		sortColumn: { path: "title", order: "asc" },
+		selectedGenre: "",
 	};
 
 	componentDidMount() {
@@ -46,7 +47,15 @@ class Movies extends Component {
 		this.setState({ sortColumn });
 	};
 
-	getPageData(selectedGenre, allMovies, sortColumn, currentPage, pageSize) {
+	getPagedData = () => {
+		const {
+			pageSize,
+			currentPage,
+			sortColumn,
+			selectedGenre,
+			movies: allMovies,
+		} = this.state;
+
 		const filtered =
 			selectedGenre && selectedGenre._id
 				? allMovies.filter((m) => m.genre._id === selectedGenre._id)
@@ -57,35 +66,22 @@ class Movies extends Component {
 		const movies = Paginate(sorted, currentPage, pageSize);
 
 		return { totalCount: filtered.length, data: movies };
-	}
+	};
 
 	render() {
 		const { length: count } = this.state.movies;
-		const {
-			pageSize,
-			currentPage,
-			movies: allMovies,
-			genres,
-			selectedGenre,
-			sortColumn,
-		} = this.state;
+		const { pageSize, currentPage, sortColumn } = this.state;
 
 		if (count === 0) return <p>There are no movies in the database.</p>;
 
-		const { totalCount, data: movies } = this.getPageData(
-			selectedGenre,
-			allMovies,
-			sortColumn,
-			currentPage,
-			pageSize
-		);
+		const { totalCount, data: movies } = this.getPagedData();
 
 		return (
 			<div className="row">
 				<div className="col-3">
 					<ListGroup
-						selectedItem={selectedGenre}
-						items={genres}
+						items={this.state.genres}
+						selectedItem={this.state.selectedGenre}
 						onItemSelect={this.handleGenreSelect}
 					/>
 				</div>
