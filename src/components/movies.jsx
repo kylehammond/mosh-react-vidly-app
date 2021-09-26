@@ -3,17 +3,21 @@ import { getMovies } from "../services/fakeMovieService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
 import Paginate from "../utils/paginate";
-import ListGroup from "./genres";
+import ListGroup from "./listGroup";
 import { getGenres } from "../services/fakeGenreService";
 
 class Movies extends Component {
 	state = {
-		movies: getMovies(),
+		movies: [],
 		pageSize: 4,
 		currentPage: 2,
-		genres: getGenres(),
-		currentGenre: "Comedy",
+		genres: [],
+		selectedGenre: "Comedy",
 	};
+
+	componentDidMount() {
+		this.setState({ movies: getMovies(), genres: getGenres() });
+	}
 
 	handleDelete = (movie) => {
 		const movies = this.state.movies.filter((m) => m._id !== movie._id);
@@ -32,9 +36,8 @@ class Movies extends Component {
 		this.setState({ currentPage: page });
 	};
 
-	handleGenreChange = (genre) => {
-		console.log(genre);
-		this.setState({ currentGenre: genre });
+	handleGenreSelect = (genre) => {
+		this.setState({ selectedGenre: genre });
 	};
 
 	render() {
@@ -44,7 +47,7 @@ class Movies extends Component {
 			currentPage,
 			movies: allMovies,
 			genres,
-			currentGenre,
+			selectedGenre,
 		} = this.state;
 
 		if (count === 0) return <p>There are no movies in the database.</p>;
@@ -53,11 +56,11 @@ class Movies extends Component {
 
 		return (
 			<div className="row">
-				<div className="col-2">
+				<div className="col-3">
 					<ListGroup
+						selectedItem={selectedGenre}
 						items={genres}
-						currentItem={currentGenre}
-						onClick={() => this.handleGenreChange(currentGenre)}
+						onItemSelect={this.handleGenreSelect}
 					/>
 				</div>
 				<div className="col">
