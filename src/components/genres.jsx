@@ -1,31 +1,33 @@
-import React, { Component } from "react";
+import React from "react";
 import PropTypes, { array } from "prop-types";
 
-const Genres = (props) => {
-	const { genres, currentGenre, onGenreChange } = props;
+const ListGroup = (props) => {
+	const { items, currentItem, onClick } = props;
 
 	return (
 		<ul className="list-group">
-			{Object.values(genres).map((g) => (
-				<li
-					key={g.id}
-					className={
-						g.name == currentGenre
-							? "list-group-item active"
-							: "list-group-item"
-					}
-					onGenreChange={onGenreChange}>
-					{g.name}
+			{Object.values(items).map((g) => (
+				<li key={g._id}>
+					<a
+						href="#"
+						className={
+							g.name === currentItem
+								? "list-group-item active"
+								: "list-group-item"
+						}
+						onClick={onClick}>
+						{g.name}
+					</a>
 				</li>
 			))}
 		</ul>
 	);
 };
 
-Genres.propTypes = {
+ListGroup.propTypes = {
 	genres: array.isRequired,
 	currentGenre: PropTypes.string.isRequired,
-	onGenreChange: PropTypes.func.isRequired,
+	onClick: PropTypes.func.isRequired,
 };
 
-export default Genres;
+export default ListGroup;
