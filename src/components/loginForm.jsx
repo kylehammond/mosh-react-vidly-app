@@ -1,16 +1,26 @@
 import { set } from "lodash";
 import React from "react";
-
+import Input from "./common/input";
 class LoginForm extends React.Component {
 	state = {
 		account: {
 			username: "",
 			password: "",
 		},
+		errors: {},
+	};
+
+	validate = () => {
+		return { username: "Username is required." };
 	};
 
 	handleSubmit = (e) => {
 		e.preventDefault();
+
+		const errors = this.validate();
+		this.setState({ errors });
+		if (errors) return;
+
 		// Call the server
 		console.log("Submited");
 	};
@@ -28,29 +38,18 @@ class LoginForm extends React.Component {
 			<div>
 				<h1>Login</h1>
 				<form onSubmit={this.handleSubmit}>
-					<div className="form-group">
-						<label htmlFor="username">Username</label>
-						<input
-							value={account.username}
-							onChange={this.handleChange}
-							name="username"
-							autoFocus
-							id="username"
-							type="text"
-							className="form-control"
-						/>
-					</div>
-					<div className="form-group">
-						<label htmlFor="password">Password</label>
-						<input
-							value={account.password}
-							onChange={this.handleChange}
-							name="password"
-							id="password"
-							type="text"
-							className="form-control"
-						/>
-					</div>
+					<Input
+						name="username"
+						label="Username"
+						value={account.username}
+						onChange={this.handleChange}
+					/>
+					<Input
+						name="password"
+						label="Password"
+						value={account.password}
+						onChange={this.handleChange}
+					/>
 					<button className="btn btn-primary">Login</button>
 				</form>
 			</div>
