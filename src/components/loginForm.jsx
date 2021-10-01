@@ -4,10 +4,7 @@ import Joi from "joi-browser";
 
 class LoginForm extends Form {
 	state = {
-		data: {
-			username: "",
-			password: "",
-		},
+		data: { username: "", password: "" },
 		errors: {},
 	};
 
