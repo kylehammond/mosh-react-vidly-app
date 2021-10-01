@@ -1,4 +1,4 @@
-import { set } from "lodash";
+import { result, set } from "lodash";
 import React from "react";
 import Input from "./common/input";
 import Joi from "joi-browser";
@@ -12,29 +12,26 @@ class LoginForm extends React.Component {
 	};
 
 	schema = {
-		username: Joi.string().required(),
-		password: Joi.string().required(),
+		username: Joi.string().required().label("UserName"),
+		password: Joi.string().required().label("Password"),
 	};
 
 	validate = () => {
-		Joi.validate(this.state.account, this.schema, { abortEarly: false });
+		const options = { abortEarly: false };
+		const { error } = Joi.validate(this.state.account, this.schema, options);
+
+		if (!error) return null;
 
 		const errors = {};
+		for (let item of error.details) errors[item.path[0]] = item.message;
 
-		const { account } = this.state;
-		if (account.username.trim() === "")
-			errors.username = "Username is required.";
-		if (account.password.trim() === "")
-			errors.password = "Password is required.";
-
-		return Object.keys(errors).length === 0 ? null : errors;
+		return errors;
 	};
 
 	handleSubmit = (e) => {
 		e.preventDefault();
 
 		const errors = this.validate();
-		console.log(errors);
 		this.setState({ errors: errors || {} });
 		if (errors) return;
 
