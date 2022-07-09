@@ -1,2 +1,2 @@
-# Vidly React
-I believe this is from programmingwithmosh.com's react course.  I am partially through it.
+# Mosh Router App (React)
+This is my code from one of the sections from the programmingwithmosh.com React training.
